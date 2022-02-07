@@ -232,7 +232,9 @@
             this.ControlBox = false;
             this.Controls.Add(this.pHeader);
             this.Controls.Add(this.pWebBrowser);
+            this.KeyPreview = true;
             this.Name = "Main";
+            this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.Main_KeyDown);
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
             this.pHeader.ResumeLayout(false);

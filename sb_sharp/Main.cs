@@ -18,14 +18,18 @@ namespace sb_sharp {
 
         private Dictionary<Button, WebView2> _tabView;
         private Dictionary<WebView2, CoreWebView2> _webCore;
+        private Stack<String> _closedTabs;
         private Button? _selectedTab;
         private Color _themeColour;
+        private Point _mouseDownLocation; //For dragging tabs
+        private bool _tabsMoved;
         public Main() {
             InitializeComponent();
             pTabBar.HorizontalScroll.Visible = false;
             pTabBar.VerticalScroll.Enabled = false;
             _tabView = new Dictionary<Button, WebView2>();
             _webCore = new Dictionary<WebView2, CoreWebView2>();
+            _closedTabs = new Stack<String>();
             pWebBrowser.Location = new Point {
                 X = 0,
                 Y = pHeader.Bottom - 3
@@ -56,8 +60,10 @@ namespace sb_sharp {
         }
 
         void tabClicked(object sender, MouseEventArgs e) {
+            _mouseDownLocation = e.Location;
             Button? b = sender as Button;
             if (b == null) return;
+            b.BringToFront();
             switch (e.Button) {
                 case MouseButtons.Left:
                     setTabSelected(b);
@@ -66,6 +72,45 @@ namespace sb_sharp {
                     closeTab(b.Controls[0], e);
                 break;
             }
+        }
+
+        void tabMoved(object sender, MouseEventArgs e) {
+            if (e.Button != MouseButtons.Left) return;
+            Button? b = _selectedTab;
+            if (b == null) return;
+            int x = e.X + b.Left - _mouseDownLocation.X;
+            int idx = pTabBar.Controls.IndexOf(b);
+            if (e.X > _mouseDownLocation.X) {
+                _tabsMoved = true;
+                b.Left = x + b.Width < pTabBar.Width ? x : pTabBar.Width - b.Width;
+                if (idx < pTabBar.Controls.Count - 1) {
+                    Button? bUnder = pTabBar.Controls[idx + 1] as Button;
+                    if (bUnder != null) {
+                        if ((b.Right > bUnder.Left + bUnder.Width / 2) && (bUnder.Left > b.Left)) {
+                            x = bUnder.Left - bUnder.Width;
+                            bUnder.Left = x > 0 ? x : 0;
+                        }
+                    }
+                }
+            }
+            else if (e.X < _mouseDownLocation.X) {
+                _tabsMoved = true;
+                b.Left = x > 0 ? x : 0;
+                if (idx > 0) {
+                    Button? bUnder = pTabBar.Controls[idx - 1] as Button;
+                    if (bUnder != null) {
+                        if ((b.Left < bUnder.Left + bUnder.Width / 2) && (bUnder.Right < b.Right)) {
+                            x = bUnder.Left + bUnder.Width;
+                            bUnder.Left = x + bUnder.Width < pTabBar.Width ? x : pTabBar.Width - bUnder.Width;
+                        }
+                    }
+                }
+            }
+        }
+        void tabReleased(object sender, MouseEventArgs e) {
+            if (_tabsMoved)
+                alignTabs();
+            _tabsMoved = false;
         }
 
         void navigationCompleted(object? sender, object e) {
@@ -92,7 +137,7 @@ namespace sb_sharp {
             _webCore.Add(wv, wv.CoreWebView2);
         }
 
-        void NewTab() {
+        void newTab() {
             const int bWidth = 150;
             int bHeight = pTabBar.Height;
             Button b = new Button() {
@@ -104,7 +149,9 @@ namespace sb_sharp {
                 Size = new Size(bWidth, bHeight),
                 Text = "New Tab",
             };
-            b.MouseUp += tabClicked;
+            b.MouseDown += tabClicked;
+            b.MouseMove += tabMoved;
+            b.MouseUp += tabReleased;
             b.FlatAppearance.BorderSize = 0;
             b.BackColor = _themeColour;
             
@@ -130,10 +177,21 @@ namespace sb_sharp {
             setTabSelected(b);
         }
 
+        void alignTabs() {
+            for (int i = 0; i < pTabBar.Controls.Count; i++) {
+                Button? t = pTabBar.Controls[i] as Button;
+                if (t == null) continue;
+                t.Location = new Point(i * t.Width, 0);
+            }
+        }
+
         void closeTab(object sender, EventArgs e) {
-            Button? x = sender as Button;
-            if (x == null) return;
-            Button? tab = x.Parent as Button;
+            Button tab = _selectedTab;
+            if (sender != null) {
+                Button? x = sender as Button;
+                if (x == null) return;
+                tab = x.Parent as Button;
+            }
             if (tab == null) return;
             WebView2 wv = _tabView[tab];
             pWebBrowser.Controls.Remove(wv);
@@ -141,6 +199,9 @@ namespace sb_sharp {
             pTabBar.Controls.Remove(tab);
             _tabView.Remove(tab);
             _webCore.Remove(wv);
+            if (wv.Source != null)
+                _closedTabs.Push(wv.Source.ToString());
+            wv.Dispose();
             if (_selectedTab == tab) {
                 if (pTabBar.Controls.Count > 0) {
                     int tabIndexToSet = tabIndex - 1;
@@ -154,15 +215,11 @@ namespace sb_sharp {
                     _selectedTab = null;
                 }
             }
-            for (int i = 0; i < pTabBar.Controls.Count; i++) {
-                Button? t = pTabBar.Controls[i] as Button;
-                if (t == null) continue;
-                t.Location = new Point(i * t.Width, 0);
-            }
+            alignTabs();
         }
 
         private void bNewTab_Click(object sender, EventArgs e) {
-            NewTab();
+            newTab();
         }
 
         private void pTabBar_MouseMove(object sender, MouseEventArgs e) {
@@ -199,10 +256,10 @@ namespace sb_sharp {
             toggleMaximise();
         }
 
-        void Search() {
+        void search() {
             String url = eURL.Text; //NewTab blanks out the URL input so we need to capture it here
             if (_selectedTab == null) 
-                NewTab();
+                newTab();
             WebView2 wv = _tabView[_selectedTab];
             Uri uriResult;
             bool result = Uri.TryCreate(url, UriKind.Absolute, out uriResult)
@@ -217,12 +274,12 @@ namespace sb_sharp {
                 wv.Source = uriResult;
         }
         private void bGo_Click(object sender, EventArgs e) {
-            Search();
+            search();
         }
 
         private void eURL_KeyDown(object sender, KeyEventArgs e) {
             if (e.KeyCode == Keys.Enter) {
-                Search();
+                search();
                 e.SuppressKeyPress = true;
             }
         }
@@ -249,6 +306,29 @@ namespace sb_sharp {
             WebView2 wv = currentView();
             if (wv != null)
                 wv.Reload();
+        }
+
+        private void Main_KeyDown(object sender, KeyEventArgs e) {
+            if (e.Control) {
+                switch (e.KeyCode) {
+                    case Keys.W:
+                        closeTab(null, e);
+                    break;
+                    case Keys.T: {
+                        if (e.Shift) {
+                            if (_closedTabs.Count > 0) {
+                                newTab();
+                                eURL.Text = _closedTabs.Pop();
+                                search();
+                            }
+                        }
+                        else {
+                            newTab();
+                        }
+                        break;
+                    }
+                }
+            }
         }
     }
 }
