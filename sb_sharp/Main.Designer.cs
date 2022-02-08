@@ -38,10 +38,10 @@
             this.bForward = new System.Windows.Forms.Button();
             this.bReload = new System.Windows.Forms.Button();
             this.eURL = new System.Windows.Forms.TextBox();
-            this.panel1 = new System.Windows.Forms.Panel();
+            this.pControls = new System.Windows.Forms.Panel();
             this.bGo = new System.Windows.Forms.Button();
             this.pHeader = new System.Windows.Forms.Panel();
-            this.panel1.SuspendLayout();
+            this.pControls.SuspendLayout();
             this.pHeader.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -52,7 +52,7 @@
             this.pTabBar.BackColor = System.Drawing.Color.LightCoral;
             this.pTabBar.Location = new System.Drawing.Point(3, 3);
             this.pTabBar.Name = "pTabBar";
-            this.pTabBar.Size = new System.Drawing.Size(1087, 30);
+            this.pTabBar.Size = new System.Drawing.Size(1089, 30);
             this.pTabBar.TabIndex = 1;
             this.pTabBar.DoubleClick += new System.EventHandler(this.pTabBar_DoubleClick);
             this.pTabBar.MouseMove += new System.Windows.Forms.MouseEventHandler(this.pTabBar_MouseMove);
@@ -64,7 +64,7 @@
             this.bNewTab.FlatAppearance.BorderSize = 0;
             this.bNewTab.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.bNewTab.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.bNewTab.Location = new System.Drawing.Point(1090, 3);
+            this.bNewTab.Location = new System.Drawing.Point(1092, 3);
             this.bNewTab.Name = "bNewTab";
             this.bNewTab.Size = new System.Drawing.Size(43, 30);
             this.bNewTab.TabIndex = 0;
@@ -89,7 +89,7 @@
             this.bClose.FlatAppearance.BorderSize = 0;
             this.bClose.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.bClose.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.bClose.Location = new System.Drawing.Point(1219, 3);
+            this.bClose.Location = new System.Drawing.Point(1221, 3);
             this.bClose.Name = "bClose";
             this.bClose.Size = new System.Drawing.Size(43, 30);
             this.bClose.TabIndex = 3;
@@ -104,7 +104,7 @@
             this.bMinimise.FlatAppearance.BorderSize = 0;
             this.bMinimise.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.bMinimise.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.bMinimise.Location = new System.Drawing.Point(1133, 3);
+            this.bMinimise.Location = new System.Drawing.Point(1135, 3);
             this.bMinimise.Name = "bMinimise";
             this.bMinimise.Size = new System.Drawing.Size(43, 30);
             this.bMinimise.TabIndex = 4;
@@ -119,7 +119,7 @@
             this.bMaximise.FlatAppearance.BorderSize = 0;
             this.bMaximise.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.bMaximise.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.bMaximise.Location = new System.Drawing.Point(1176, 3);
+            this.bMaximise.Location = new System.Drawing.Point(1178, 3);
             this.bMaximise.Name = "bMaximise";
             this.bMaximise.Size = new System.Drawing.Size(43, 30);
             this.bMaximise.TabIndex = 5;
@@ -175,24 +175,24 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.eURL.Location = new System.Drawing.Point(141, 4);
             this.eURL.Name = "eURL";
-            this.eURL.Size = new System.Drawing.Size(1058, 23);
+            this.eURL.Size = new System.Drawing.Size(1060, 23);
             this.eURL.TabIndex = 9;
             this.eURL.KeyDown += new System.Windows.Forms.KeyEventHandler(this.eURL_KeyDown);
             // 
-            // panel1
+            // pControls
             // 
-            this.panel1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            this.pControls.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.panel1.BackColor = System.Drawing.Color.LightCoral;
-            this.panel1.Controls.Add(this.bGo);
-            this.panel1.Controls.Add(this.eURL);
-            this.panel1.Controls.Add(this.bReload);
-            this.panel1.Controls.Add(this.bBack);
-            this.panel1.Controls.Add(this.bForward);
-            this.panel1.Location = new System.Drawing.Point(3, 33);
-            this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(1259, 30);
-            this.panel1.TabIndex = 2;
+            this.pControls.BackColor = System.Drawing.Color.LightCoral;
+            this.pControls.Controls.Add(this.bGo);
+            this.pControls.Controls.Add(this.eURL);
+            this.pControls.Controls.Add(this.bReload);
+            this.pControls.Controls.Add(this.bBack);
+            this.pControls.Controls.Add(this.bForward);
+            this.pControls.Location = new System.Drawing.Point(3, 33);
+            this.pControls.Name = "pControls";
+            this.pControls.Size = new System.Drawing.Size(1261, 30);
+            this.pControls.TabIndex = 2;
             // 
             // bGo
             // 
@@ -201,7 +201,7 @@
             this.bGo.FlatAppearance.BorderSize = 0;
             this.bGo.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.bGo.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.bGo.Location = new System.Drawing.Point(1205, 0);
+            this.bGo.Location = new System.Drawing.Point(1207, 0);
             this.bGo.Name = "bGo";
             this.bGo.Size = new System.Drawing.Size(43, 30);
             this.bGo.TabIndex = 6;
@@ -213,7 +213,7 @@
             // 
             this.pHeader.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.pHeader.Controls.Add(this.panel1);
+            this.pHeader.Controls.Add(this.pControls);
             this.pHeader.Controls.Add(this.pTabBar);
             this.pHeader.Controls.Add(this.bMaximise);
             this.pHeader.Controls.Add(this.bNewTab);
@@ -221,7 +221,7 @@
             this.pHeader.Controls.Add(this.bClose);
             this.pHeader.Location = new System.Drawing.Point(1, -3);
             this.pHeader.Name = "pHeader";
-            this.pHeader.Size = new System.Drawing.Size(1259, 65);
+            this.pHeader.Size = new System.Drawing.Size(1261, 65);
             this.pHeader.TabIndex = 6;
             // 
             // Main
@@ -235,8 +235,9 @@
             this.KeyPreview = true;
             this.Name = "Main";
             this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.Main_KeyDown);
-            this.panel1.ResumeLayout(false);
-            this.panel1.PerformLayout();
+            this.Resize += new System.EventHandler(this.Main_Resize);
+            this.pControls.ResumeLayout(false);
+            this.pControls.PerformLayout();
             this.pHeader.ResumeLayout(false);
             this.ResumeLayout(false);
 
@@ -253,7 +254,7 @@
         private Button bForward;
         private Button bReload;
         private TextBox eURL;
-        private Panel panel1;
+        private Panel pControls;
         private Button bGo;
         private Panel pHeader;
     }
