@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Main));
             this.pTabBar = new System.Windows.Forms.Panel();
             this.bNewTab = new System.Windows.Forms.Button();
             this.pWebBrowser = new System.Windows.Forms.Panel();
@@ -64,11 +65,11 @@
             this.bNewTab.FlatAppearance.BorderSize = 0;
             this.bNewTab.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.bNewTab.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.bNewTab.Image = ((System.Drawing.Image)(resources.GetObject("bNewTab.Image")));
             this.bNewTab.Location = new System.Drawing.Point(1092, 3);
             this.bNewTab.Name = "bNewTab";
             this.bNewTab.Size = new System.Drawing.Size(43, 30);
             this.bNewTab.TabIndex = 0;
-            this.bNewTab.Text = "+";
             this.bNewTab.UseVisualStyleBackColor = false;
             this.bNewTab.Click += new System.EventHandler(this.bNewTab_Click);
             // 
@@ -89,11 +90,11 @@
             this.bClose.FlatAppearance.BorderSize = 0;
             this.bClose.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.bClose.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.bClose.Image = ((System.Drawing.Image)(resources.GetObject("bClose.Image")));
             this.bClose.Location = new System.Drawing.Point(1221, 3);
             this.bClose.Name = "bClose";
             this.bClose.Size = new System.Drawing.Size(43, 30);
             this.bClose.TabIndex = 3;
-            this.bClose.Text = "X";
             this.bClose.UseVisualStyleBackColor = false;
             this.bClose.Click += new System.EventHandler(this.bClose_Click);
             // 
@@ -104,11 +105,11 @@
             this.bMinimise.FlatAppearance.BorderSize = 0;
             this.bMinimise.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.bMinimise.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.bMinimise.Image = ((System.Drawing.Image)(resources.GetObject("bMinimise.Image")));
             this.bMinimise.Location = new System.Drawing.Point(1135, 3);
             this.bMinimise.Name = "bMinimise";
             this.bMinimise.Size = new System.Drawing.Size(43, 30);
             this.bMinimise.TabIndex = 4;
-            this.bMinimise.Text = "--";
             this.bMinimise.UseVisualStyleBackColor = false;
             this.bMinimise.Click += new System.EventHandler(this.bMinimise_Click);
             // 
@@ -119,11 +120,11 @@
             this.bMaximise.FlatAppearance.BorderSize = 0;
             this.bMaximise.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.bMaximise.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.bMaximise.Image = ((System.Drawing.Image)(resources.GetObject("bMaximise.Image")));
             this.bMaximise.Location = new System.Drawing.Point(1178, 3);
             this.bMaximise.Name = "bMaximise";
-            this.bMaximise.Size = new System.Drawing.Size(43, 30);
+            this.bMaximise.Size = new System.Drawing.Size(48, 30);
             this.bMaximise.TabIndex = 5;
-            this.bMaximise.Text = "[ ]";
             this.bMaximise.UseVisualStyleBackColor = false;
             this.bMaximise.Click += new System.EventHandler(this.bMaximise_Click);
             // 
@@ -133,11 +134,11 @@
             this.bBack.FlatAppearance.BorderSize = 0;
             this.bBack.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.bBack.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.bBack.Image = ((System.Drawing.Image)(resources.GetObject("bBack.Image")));
             this.bBack.Location = new System.Drawing.Point(0, 0);
             this.bBack.Name = "bBack";
             this.bBack.Size = new System.Drawing.Size(43, 30);
             this.bBack.TabIndex = 6;
-            this.bBack.Text = "<-";
             this.bBack.UseVisualStyleBackColor = false;
             this.bBack.Click += new System.EventHandler(this.bBack_Click);
             // 
@@ -147,11 +148,11 @@
             this.bForward.FlatAppearance.BorderSize = 0;
             this.bForward.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.bForward.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.bForward.Image = ((System.Drawing.Image)(resources.GetObject("bForward.Image")));
             this.bForward.Location = new System.Drawing.Point(45, 0);
             this.bForward.Name = "bForward";
             this.bForward.Size = new System.Drawing.Size(43, 30);
             this.bForward.TabIndex = 7;
-            this.bForward.Text = "->";
             this.bForward.UseVisualStyleBackColor = false;
             this.bForward.Click += new System.EventHandler(this.bForward_Click);
             // 
@@ -160,12 +161,12 @@
             this.bReload.BackColor = System.Drawing.Color.LightCoral;
             this.bReload.FlatAppearance.BorderSize = 0;
             this.bReload.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.bReload.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.bReload.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.bReload.Image = ((System.Drawing.Image)(resources.GetObject("bReload.Image")));
             this.bReload.Location = new System.Drawing.Point(92, 0);
             this.bReload.Name = "bReload";
             this.bReload.Size = new System.Drawing.Size(43, 30);
             this.bReload.TabIndex = 8;
-            this.bReload.Text = "O";
             this.bReload.UseVisualStyleBackColor = false;
             this.bReload.Click += new System.EventHandler(this.bReload_Click);
             // 
@@ -201,11 +202,11 @@
             this.bGo.FlatAppearance.BorderSize = 0;
             this.bGo.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.bGo.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.bGo.Image = ((System.Drawing.Image)(resources.GetObject("bGo.Image")));
             this.bGo.Location = new System.Drawing.Point(1207, 0);
             this.bGo.Name = "bGo";
             this.bGo.Size = new System.Drawing.Size(43, 30);
             this.bGo.TabIndex = 6;
-            this.bGo.Text = "Go";
             this.bGo.UseVisualStyleBackColor = false;
             this.bGo.Click += new System.EventHandler(this.bGo_Click);
             // 
