@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Main));
             this.pTabBar = new System.Windows.Forms.Panel();
             this.bNewTab = new System.Windows.Forms.Button();
@@ -42,8 +43,11 @@
             this.pControls = new System.Windows.Forms.Panel();
             this.bGo = new System.Windows.Forms.Button();
             this.pHeader = new System.Windows.Forms.Panel();
+            this.cmTab = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.tsCopyURL = new System.Windows.Forms.ToolStripMenuItem();
             this.pControls.SuspendLayout();
             this.pHeader.SuspendLayout();
+            this.cmTab.SuspendLayout();
             this.SuspendLayout();
             // 
             // pTabBar
@@ -225,6 +229,21 @@
             this.pHeader.Size = new System.Drawing.Size(1261, 65);
             this.pHeader.TabIndex = 6;
             // 
+            // cmTab
+            // 
+            this.cmTab.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.tsCopyURL});
+            this.cmTab.Name = "contextMenuStrip1";
+            this.cmTab.Size = new System.Drawing.Size(127, 26);
+            this.cmTab.Opened += new System.EventHandler(this.cmTab_Opened);
+            // 
+            // tsCopyURL
+            // 
+            this.tsCopyURL.Name = "tsCopyURL";
+            this.tsCopyURL.Size = new System.Drawing.Size(126, 22);
+            this.tsCopyURL.Text = "Copy URL";
+            this.tsCopyURL.Click += new System.EventHandler(this.tsCopyURL_Click);
+            // 
             // Main
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
@@ -240,6 +259,7 @@
             this.pControls.ResumeLayout(false);
             this.pControls.PerformLayout();
             this.pHeader.ResumeLayout(false);
+            this.cmTab.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -258,5 +278,7 @@
         private Panel pControls;
         private Button bGo;
         private Panel pHeader;
+        private ContextMenuStrip cmTab;
+        private ToolStripMenuItem tsCopyURL;
     }
 }

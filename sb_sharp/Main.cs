@@ -2,6 +2,7 @@ using Microsoft.Web.WebView2.WinForms;
 using Microsoft.Web.WebView2.Core;
 using System.Runtime.InteropServices;
 using System.Web;
+using System.Windows.Forms;
 
 namespace sb_sharp {
     public partial class Main : Form {
@@ -24,6 +25,7 @@ namespace sb_sharp {
         private Point _mouseDownLocation; //For dragging tabs
         private bool _tabsMoved;
         FormWindowState _lastWindowState;
+        Button? _tabRightClicked;
         public Main() {
             InitializeComponent();
             _webCore = new Dictionary<WebView2, CoreWebView2>();
@@ -157,6 +159,7 @@ namespace sb_sharp {
             Tab? t = _tabs.FirstOrDefault(t => t.WebView == wv);
             if (t == null) return;
             t.Text = c.DocumentTitle;
+            t.URL = wv.Source.ToString();
             setTitleText();
         }
 
@@ -180,6 +183,7 @@ namespace sb_sharp {
             b.MouseDown += tabClicked;
             b.MouseMove += tabMoved;
             b.MouseUp += tabReleased;
+            b.ContextMenuStrip = cmTab;
             Button x = t.CloseButton;
             x.Click += closeTab;
             x.MouseEnter += toogleShowCloseTab;
@@ -249,11 +253,10 @@ namespace sb_sharp {
 
         //Handles moving the window via the tabbar rather than the built in bar
         private void pTabBar_MouseMove(object sender, MouseEventArgs e) {
-            if (e.Button == MouseButtons.Left) {
-                FormBorderStyle = FormBorderStyle.Sizable;
-                ReleaseCapture();
-                SendMessage(Handle, WM_NCLBUTTONDOWN, HT_CAPTION, 0);
-            }
+            if (e.Button != MouseButtons.Left) return;
+            FormBorderStyle = FormBorderStyle.Sizable;
+            ReleaseCapture();
+            SendMessage(Handle, WM_NCLBUTTONDOWN, HT_CAPTION, 0);
         }
 
         private void bClose_Click(object sender, EventArgs e) {
@@ -363,13 +366,24 @@ namespace sb_sharp {
 
         //Due to the border style, maximising the window has a weird offset around the edges so we change the style when maximised
         private void Main_Resize(object sender, EventArgs e) {
-            if (WindowState != _lastWindowState) {
-                _lastWindowState = WindowState;
-                if (WindowState == FormWindowState.Maximized) 
-                    FormBorderStyle = FormBorderStyle.None;
-                else if (WindowState == FormWindowState.Normal) 
-                    FormBorderStyle = FormBorderStyle.Sizable;
-            }
+            if (WindowState == _lastWindowState) return;
+            _lastWindowState = WindowState;
+            if (WindowState == FormWindowState.Maximized) 
+                FormBorderStyle = FormBorderStyle.None;
+            else if (WindowState == FormWindowState.Normal) 
+                FormBorderStyle = FormBorderStyle.Sizable;
+        }
+
+        private void tsCopyURL_Click(object sender, EventArgs e) {
+            if (_tabRightClicked == null) return;
+            Tab? t = _tabs.FirstOrDefault(t => t.TabButton == _tabRightClicked);
+            if (t == null) return;
+            if (t.URL != null)
+                Clipboard.SetText(t.URL);
+        }
+
+        private void cmTab_Opened(object sender, EventArgs e) {
+            _tabRightClicked = cmTab.SourceControl as Button;
         }
     }
 
@@ -395,6 +409,7 @@ namespace sb_sharp {
         }
 
         public Tab(Color c, int h, int x, int viewWidth, int viewHeight) {
+            #region Button control
             const int bWidth = 150;
             int bHeight = h;
             _tab = new Button()
@@ -410,8 +425,9 @@ namespace sb_sharp {
             };
             _tab.FlatAppearance.BorderSize = 0;
             _tab.BackColor = c;
+            #endregion
 
-            //Close tab button
+            #region Close tab button
             _x = new Button();
             _x.Visible = false; //Button creation can be slow and cause flickering - make it invisible to hide this until it's fully created
             _x.FlatStyle = FlatStyle.Flat;
@@ -426,6 +442,8 @@ namespace sb_sharp {
             _x.BackColor = Color.Transparent;
             _x.Image = null;
             _x.Visible = true;
+            #endregion
+
             _webView = new WebView2
             {
                 Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right,
